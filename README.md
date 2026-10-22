@@ -1,85 +1,42 @@
-# 🏠 Min-Max Normalization & PCA Workshop
+# Min-Max Normalization and PCA Workshop
 
-## 📘 Workshop Overview
+**Team 6 - Jasper Lim**
 
-This workshop introduces students to two foundational techniques in Machine Learning preprocessing and dimensionality reduction:
+## Challenge summary
 
-- **Min-Max Normalization**
-- **Principal Component Analysis (PCA)**
+This completed workshop uses the housing dataset in `data/housing_data.csv` to demonstrate manual Min-Max normalization and Principal Component Analysis (PCA). The notebook normalizes every numeric field while excluding the `House_ID` identifier, handles constant-valued columns safely, and uses the normalized housing features (excluding `Price`) as PCA inputs. `Price` is kept separate as the target for a post-PCA correlation check.
 
-Using a real-world **housing dataset**, students will first normalize all numerical features to ensure fair comparison and proper scaling. They will then extend their analysis by applying PCA to identify the most important underlying structure in the data.
+The challenge asks how much variance each principal component captures, how the original features contribute to PC1 and PC2, and whether the components with the most variance also relate to `Price`. On this dataset, four components are needed to reach 90% cumulative explained variance (94.86% total). PC1 is dominated by `Num_Bathrooms`, PC2 by `Num_Bedrooms`, and PC3 has the largest absolute correlation with `Price` (about -0.032) - a negligible linear relationship. The notebook includes graphs for cumulative variance, feature loadings, and component-to-price correlations.
 
-This workshop is designed for active learning, collaborative coding, and reflective thinking.
+## Setup
 
----
+1. Install Python 3.11 or later.
+2. From the repository root, create and activate a virtual environment in PowerShell:
 
-## 🧠 Topics Covered
+   ```powershell
+   py -3.11 -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   ```
 
-### 1️⃣ Min-Max Normalization
-- Linear feature scaling
-- Implementation from scratch
-- Handling edge cases (e.g., constant columns)
-- Why normalization matters for ML algorithms (KNN, regression, neural networks)
+3. Install the pinned dependencies:
 
-### 2️⃣ Principal Component Analysis (PCA)
-- Variance maximization
-- Eigenvectors and eigenvalues (conceptual level)
-- Dimensionality reduction
-- Interpreting principal components
-- Relating principal components to a target variable
+   ```powershell
+   .\.venv\Scripts\python.exe -m pip install --upgrade pip
+   .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+   ```
 
----
+4. In VS Code, install/enable the Python and Jupyter extensions, open this repository, and select the `.venv` Python interpreter as the notebook kernel.
 
-## 🎯 Expected Learning Outcomes
+## How to run
 
-By the end of this workshop, students should be able to:
+1. Open [`MinMax_Normalization_Workshop.ipynb`](./MinMax_Normalization_Workshop.ipynb) in VS Code.
+2. Select the `.venv` kernel if prompted.
+3. Choose **Run All**. The dataset is loaded from the relative path `data/housing_data.csv`; run the notebook with the repository root as the working folder.
 
-- Implement Min-Max normalization across all numerical features of a dataset.
-- Explain why feature scaling is necessary before applying PCA.
-- Apply PCA to a normalized housing dataset.
-- Determine how many principal components explain ≥ 90% of the variance.
-- Interpret feature loadings and relate principal components to a target variable.
-- Critically evaluate code implementation through structured “talking points.”
+The notebook contains the complete normalization implementation, PCA analysis, written challenge findings, three talking points for each topic, and the PCA visualization section. Re-run all cells after changing the dataset so the displayed findings and graphs are refreshed.
 
----
+## Main takeaways
 
-## 🧩 Summary of Activity
-
-### Step 1: Normalize the Housing Dataset
-Students implement Min-Max normalization manually on all relevant numerical features.
-
-### Step 2: Explore Principal Components
-Students apply PCA to the normalized feature matrix to:
-- Identify major variance directions
-- Determine cumulative explained variance
-- Analyze feature loadings
-- Examine correlation between principal components and the target variable
-
-### Step 3: Reflection & Talking Points
-Students document three “talking points” discussing:
-- Implementation decisions
-- Efficiency or logic considerations
-- Interpretation of PCA results
-
----
-
-## 📂 Repository Contents
-
-- `MinMax_Normalization_Workshop_vNext_PCA.ipynb`
-- `housing_data.csv`
-- `README.md` (this file)
-
----
-
-## 🚀 Why This Matters
-
-Feature scaling and dimensionality reduction are critical skills in modern Machine Learning workflows. Understanding both the mechanics and interpretation of these techniques prepares students for:
-
-- Model optimization
-- Feature engineering
-- Data preprocessing pipelines
-- Real-world ML deployment challenges
-
----
-
-
+- Min-Max scaling places numeric fields on a comparable 0-1 range; it does not make every feature equally informative or protect against outliers.
+- PCA is unsupervised: components maximize feature variance, not predictive power for `Price`.
+- On this dataset, the strongest variance direction mostly reflects bathroom count, while the strongest component-to-price correlation is near zero. Neither result implies causation or useful predictive performance.
