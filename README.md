@@ -41,9 +41,9 @@ The notebook contains the complete normalization implementation, PCA analysis, w
 - PCA is unsupervised: components maximize feature variance, not predictive power for `Price`.
 - On this dataset, the strongest variance direction mostly reflects bathroom count, while the strongest component-to-price correlation is near zero. Neither result implies causation or useful predictive performance.
 
+![alt text](image-1.png)
 ![alt text](image.png)
 
-![alt text](image-1.png)
 
 ### ✅ Challenge Findings
 
