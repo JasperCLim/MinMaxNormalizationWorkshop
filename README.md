@@ -40,3 +40,20 @@ The notebook contains the complete normalization implementation, PCA analysis, w
 - Min-Max scaling places numeric fields on a comparable 0-1 range; it does not make every feature equally informative or protect against outliers.
 - PCA is unsupervised: components maximize feature variance, not predictive power for `Price`.
 - On this dataset, the strongest variance direction mostly reflects bathroom count, while the strongest component-to-price correlation is near zero. Neither result implies causation or useful predictive performance.
+
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+### ✅ Challenge Findings
+
+1. **Variance threshold:** Four components are needed to reach at least 90% cumulative explained variance (PC1–PC3 explain 88.44%; PC1–PC4 explain 94.86%).
+2. **Largest loadings:** `Num_Bathrooms` contributes most to PC1 (loading about -0.999), while `Num_Bedrooms` contributes most to PC2 (about 0.993). Loading signs can flip without changing the component.
+3. **Relationship to Price:** PC3 has the largest absolute correlation with raw `Price`, but the correlation is only about -0.032 and is practically negligible in this dataset.
+4. **Interpretation:** PC1 is essentially a bathroom-count direction because its loading on `Num_Bathrooms` is much larger than its loadings on the other input features. PCA is unsupervised, so this high-variance direction is not necessarily useful for predicting price.
+
+### 🔎 Talking Points #2 — PCA interpretation
+
+1. **Variance is not the same as predictive value:** PCA is unsupervised and orders components by feature variance, not by how well they explain `Price`. The first three components capture 88.44%, just short of the 90% threshold; the fourth raises the total to 94.86%.
+2. **Interpret loadings by magnitude:** PC1 is dominated by `Num_Bathrooms` and PC2 by `Num_Bedrooms`. A component's sign is arbitrary, so the magnitude identifies the strongest contribution; it is not evidence of a causal effect.
+3. **The target relationship is weak:** PC3 is most correlated with `Price` (r ≈ -0.032), which is close to zero. The scree plot, loading heatmap, and correlation chart below help show why retaining variance alone does not guarantee useful price predictions.
